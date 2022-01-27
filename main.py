@@ -313,9 +313,9 @@ def run(args):
     if not os.path.isdir(args.dest):
         os.mkdir(args.dest)
 
-    # print('start download file')
-    # downloader = Downloader(tree, raw_root=args.raw, date=args.date)
-    # downloader.download()
+    print('start download file')
+    downloader = Downloader(tree, raw_root=args.raw, date=args.date)
+    downloader.download()
     print('start transform JSON raw file to csv file')
     doc = Document(raw_root=raw_file)
     doc.to_csv_all(tree, root=args.dest)
