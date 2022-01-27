@@ -16,11 +16,14 @@ Excel可能对这里使用的无BOM UTF8编码处理有问题而导致乱码。�
 为gbk或者使用我另外转的<a href="https://pan.baidu.com/s/1JEGm0bfpXwvxwdZMKSoW2A">1978-2016年数据gbk编码版</a>
 （就不重复上传占仓库大小了）。
 
+###
+当前版本只能获得年度、季度、月度的数据，通过类型进行设定
+不再生成csv。易乱码，直接由pd生成Excel
 
 ### 使用脚本
 
 ```shell
-$ python main.py --type year --date 1978-2016 --dest data2016 --tree tree2016
+$ python main.py --type year --date 1978-2016 --dest data2016
 ```
 
 另外吐槽一下其实数据没压缩也才10+Mb。那些统计年鉴都是塞了一堆图才那么大的。
