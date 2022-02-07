@@ -325,7 +325,7 @@ def run(args):
 def CLI():
     import argparse
     parser = argparse.ArgumentParser(
-        usage=u'python main.py --encoding utf-8 --date 1978-2015 --dest new_data --raw new_tree',
+        usage=u'python main.py --type y --date 2000-2021 --dest data_year',
         description=u"国家数据抓取器")
     # parser.add_argument('--type', default='year', help=u'抓取哪种类型的数据，目前没用')
     parser.add_argument('--type', default='month', help=u'抓取哪种类型的数据，目前没用')
@@ -353,10 +353,8 @@ if __name__ == "__main__":
         args.type = 'year'
         args.encoding = 'utf-8'
         # args.date = '1978-2014'
-        args.date = '1978-2015'
+        args.date = '1978-2021'
         args.dest = 'data_test'
-        args.raw = 'raw_test'
-        args.tree = 'tree_test'
         # run(args)
     else:
         CLI()

@@ -6,3 +6,7 @@ data_test/
 raw_test/
 tree_test
 cache/
+.idea/*
+.git/
+.idea/
+*.xml
