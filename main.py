@@ -65,7 +65,7 @@ class TreeNode(object):
                 self.children.append(TreeNode(iid=data['id'], name=data['name'],
                                               dbcode=data['dbcode'], data_me=data))
             self.leaf = len(self.children) == 0
-            time.sleep(1)
+            time.sleep(2)
 
     def get_recur(self, force=False, verbose=True):
         if force or self.data is None:
@@ -167,6 +167,7 @@ class Document(object):
 
     def get(self, name):
         path = os.path.join(self.raw_root, name)
+        print(path)
         with open(path, 'r', encoding='utf8') as f:
             line = f.readline().strip('\n')
             if line == '<!DOCTYPE html>':
@@ -280,6 +281,9 @@ def test(tree):
 
 
 def run(args):
+    db_code = 'hgnd'
+    tree_file = 'tree_year'
+    raw_file = 'raw_year'
     if args.type in ['Y', 'y', 'year', 'Year']:
         db_code = 'hgnd'
         tree_file = 'tree_year'
@@ -314,7 +318,7 @@ def run(args):
         os.mkdir(args.dest)
 
     print('start download file')
-    downloader = Downloader(tree, raw_root=args.raw, date=args.date)
+    downloader = Downloader(tree, raw_root=raw_file, date=args.date)
     downloader.download()
     print('start transform JSON raw file to csv file')
     doc = Document(raw_root=raw_file)
@@ -331,7 +335,7 @@ def CLI():
     parser.add_argument('--type', default='month', help=u'抓取哪种类型的数据，目前没用')
     parser.add_argument('--encoding', default='utf-8', help=u"输出的csv文件的编码,默认的UTF8可能对Excel不友好")
     parser.add_argument('--date', default='2000-2021', help=u'请求的数据区间如 --date 1978-2015')
-    parser.add_argument('--dest', default='new_data', help=u"输出目录")
+    parser.add_argument('--dest', default='data_month', help=u"输出目录")
 
     args = parser.parse_args()
     run(args)
@@ -340,7 +344,7 @@ def CLI():
 if __name__ == "__main__":
     import sys
 
-    # CLI()
+
     if len(sys.argv) <= 1:
         print('DEBUG MODE')
         print('IF YOU WANT USE IT IN CLI, YOU NEED A ARGUMENT TO ACTIVATE IT')
@@ -353,9 +357,9 @@ if __name__ == "__main__":
         args.type = 'year'
         args.encoding = 'utf-8'
         # args.date = '1978-2014'
-        args.date = '1978-2021'
-        args.dest = 'data_test'
-        # run(args)
+        args.date = '2000-2021'
+        args.dest = 'data_year'
+        run(args)
     else:
         CLI()
 
