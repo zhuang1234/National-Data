@@ -226,7 +226,10 @@ class Document(object):
     def to_csv_all(self, tree, root='data', encoding='utf8'):
         for path, node in self.iter_tree(tree):
             if node.leaf and os.path.exists(os.path.join(self.raw_root, node.id)):
-                path_t = (root,) + path
+                path = list(path)
+                if '/' in path[-1]:
+                    path[-1] = path[-1].replace('/', '_')
+                path_t = [root, ] + path
                 check_dir(path_t)
                 self.to_csv(node.id, os.path.join(*path_t) + '.xlsx')
 
@@ -318,7 +321,7 @@ def run(args):
         os.mkdir(args.dest)
 
     print('start download file')
-    downloader = Downloader(tree, raw_root=raw_file, date=args.date)
+    downloader = Downloader(tree, raw_root=raw_file, dbcode=db_code, date=args.date)
     downloader.download()
     print('start transform JSON raw file to csv file')
     doc = Document(raw_root=raw_file)
@@ -354,11 +357,11 @@ if __name__ == "__main__":
             pass
 
         args = Args()
-        args.type = 'year'
+        args.type = 'quarter'
         args.encoding = 'utf-8'
         # args.date = '1978-2014'
         args.date = '2000-2021'
-        args.dest = 'data_year'
+        args.dest = 'data_quarter'
         run(args)
     else:
         CLI()
